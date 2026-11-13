@@ -143,8 +143,13 @@ body {
   cursor: pointer;
 }
 
-.toolbar__btn:hover {
+.toolbar__btn:hover:not(:disabled) {
   border-color: var(--accent);
+}
+
+.toolbar__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .toolbar__btn--primary {
