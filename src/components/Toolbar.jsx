@@ -1,10 +1,15 @@
 import { useAppState } from '../state/AppContext.jsx'
+import { packetsToCsv, downloadCsv, csvFilename } from '../lib/csv.js'
 
 const INTERFACES = ['eth0 (Simulated Ethernet)', 'wlan0 (Simulated Wi-Fi)', 'lo (Loopback)']
 
 export default function Toolbar({ onStart, onStop, onClear }) {
-  const { state, dispatch } = useAppState()
+  const { state, dispatch, filteredPackets } = useAppState()
   const { isCapturing, interfaceName, autoScroll } = state
+
+  function handleExport() {
+    downloadCsv(packetsToCsv(filteredPackets), csvFilename())
+  }
 
   return (
     <div className="toolbar" role="toolbar" aria-label="Capture controls">
@@ -20,6 +25,15 @@ export default function Toolbar({ onStart, onStop, onClear }) {
         )}
         <button type="button" className="toolbar__btn" onClick={onClear} title="Clear capture">
           <span aria-hidden="true">⟲</span> Clear
+        </button>
+        <button
+          type="button"
+          className="toolbar__btn"
+          onClick={handleExport}
+          disabled={filteredPackets.length === 0}
+          title="Export the packets shown in the list (current filter and sort) as CSV"
+        >
+          <span aria-hidden="true">⤓</span> Export CSV
         </button>
       </div>
 
