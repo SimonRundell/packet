@@ -11,6 +11,7 @@ import PacketListPane from './components/PacketListPane.jsx'
 import DetailsPane from './components/DetailsPane.jsx'
 import HexDumpPane from './components/HexDumpPane.jsx'
 import StatusBar from './components/StatusBar.jsx'
+import CMFloatAd from './cmFloatAd.jsx'
 
 function Workspace() {
   const { state, dispatch } = useAppState()
@@ -59,6 +60,7 @@ function Workspace() {
         </section>
       </div>
       <StatusBar />
+      <CMFloatAd />
     </div>
   )
 }
